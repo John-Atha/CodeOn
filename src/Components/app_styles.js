@@ -5,6 +5,7 @@ const flex = `
     flex-flow: row-wrap;
 `;
 
+const topPadding = `15vh`;
 
 export const Slide = keyframes`
     0% {
@@ -40,7 +41,7 @@ export const Message = styled.div`
 export const Container = styled.div`
     ${flex};
     ${props => props.padding==='large' && `
-        padding: 15vh 0vh;
+        padding: ${topPadding} 0vh;
     `}
     ${props => props.padding==='small' && `
         padding: 30px 0vh;
@@ -60,4 +61,24 @@ export const LangTitle = styled.h3`
     text-align: center;
     animation-name: ${SlowShowing};
     animation-duration: 4s;
+`
+export const EditorContainer = styled.div`
+    padding-top: ${topPadding};
+`
+export const MySelect = styled.select`
+    padding: 2px;
+    background-color: black;
+    color: white;
+    border: 1px solid grey;
+    border-radius: 7px;
+`
+
+export const CodingArea = styled.textarea`
+    padding: 5px;
+    margin: 5px;
+    background-color: black;
+    color: white;
+    border: 1px solid grey;
+    border-radius: 7px;
+
 `

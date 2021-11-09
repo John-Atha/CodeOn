@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+
+import Header from './Header';
 import Home from './Home';
+import Editor from './Editor';
+
 import '../index.css';
 
 function App() {
-  const [coding, setCoding] = useState(false)
-  const [lang, setLang] = useState(null)
 
   const languages = [
     {
@@ -42,9 +43,9 @@ function App() {
     },
   ]  
 
-  const redirect = () => {
-    setCoding(!coding);
-  }
+  const [coding, setCoding] = useState(false)
+  const [lang, setLang] = useState(languages[0])
+
 
   const startCoding = (language=null) => {
     setCoding(true);
@@ -53,21 +54,11 @@ function App() {
 
   return (
     <div className="App">
-      <Button
-        variant='outline-light'
-        style={{'position': 'absolute', 'top': '3px', 'left': '3px'}}
-        onClick={redirect}>
-          {coding && 'Back Home' }
-          {!coding && 'Get started'}
-      </Button>
-      <Button 
-        variant='outline-light'
-        style={{'position': 'absolute', 'top': '3px', 'right': '3px'}}
-        href='https://github.com/John-Atha/CodeOn'
-        rel='noopener noreferrer'
-        target='_blank'>
-          Source code
-      </Button>
+      <Header
+        coding={coding}
+        setCoding={setCoding}
+      />
+
       {!coding &&
         <Home
           startCoding={startCoding}
@@ -75,7 +66,11 @@ function App() {
         />
       }
       {coding && 
-        null
+        <Editor 
+          lang={lang}
+          languages={languages}
+          setLang={setLang}
+        />
       }
     </div>
   );
