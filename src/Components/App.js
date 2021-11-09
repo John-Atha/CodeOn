@@ -1,56 +1,82 @@
 import React, { useState, useEffect } from 'react';
-import { createNotification } from './createNotification';
-import { Container, Message, Info, LangTitle } from './app_styles';
 import { Button } from 'react-bootstrap';
+import Home from './Home';
 import '../index.css';
 
 function App() {
-  const [visited, setVisited]= useState(sessionStorage.getItem('visited'));
+  const [coding, setCoding] = useState(false)
+  const [lang, setLang] = useState(null)
 
-  useEffect(() => {
-    if (!visited) {
-      createNotification('success', 'Hello!', 'We are glad that you are here!');
-      sessionStorage.setItem('visited', true);
-    }
-  }, [])
+  const languages = [
+    {
+      'name': 'Java',
+      'payload': 'java',
+    },
+    {
+      'name': 'Python',
+      'payload': 'py',
+    },
+    {
+      'name': 'C',
+      'payload': 'c',
+    },
+    {
+      'name': 'C++',
+      'payload': 'cpp',
+    },
+    {
+      'name': 'C#',
+      'payload': 'cs',
+    },
+    {
+      'name': 'Ruby',
+      'payload': 'rb',
+    },      
+    {
+      'name': 'Kotlin',
+      'payload': 'kt',
+    }, 
+    {
+      'name': 'Swift',
+      'payload': 'swift',
+    },
+  ]  
+
+  const redirect = () => {
+    setCoding(!coding);
+  }
+
+  const startCoding = (language=null) => {
+    setCoding(true);
+    setLang(language || languages[0])
+  }
 
   return (
     <div className="App">
-      <Button variant='outline-light' style={{'position': 'absolute', 'top': '3px', 'left': '3px'}}>About us</Button>
-      <Button variant='outline-light' style={{'position': 'absolute', 'top': '3px', 'right': '3px'}}>Source code</Button>
-      <Container padding={'large'}>
-        <Message>
-          <h2 style={{'marginBottom': '50px'}}>
-            Welcome to CodeOn
-          </h2>
-          <h4>
-            Why downloading a code editor,<br/>
-            when we you can find it online?
-          </h4>
-        </Message>
-        <Info>
-          With us, you code:
-          <ul>
-            <li><b>from anywhere</b></li>
-            <li>in multiple languages</li>
-            <li>with a rapid and easy-to-use environment</li>
-          </ul>
-        <Button variant='primary'>Get started</Button>
-        </Info>
-      </Container>
-      <LangTitle>
-        Supported Languages
-      </LangTitle>
-      <Container padding={'small'} showing={'slow'}>
-        {
-          ['Java', 'Python', 'C', 'C++', 'C+', 'Ruby', 'Kotlin', 'Swift'].map((value, index) => {
-            return (
-              <Button style={{'margin': 'auto'}} variant='outline-success' key={index}>{value}</Button>
-            )
-          })
-        }
-      </Container>
-
+      <Button
+        variant='outline-light'
+        style={{'position': 'absolute', 'top': '3px', 'left': '3px'}}
+        onClick={redirect}>
+          {coding && 'Back Home' }
+          {!coding && 'Get started'}
+      </Button>
+      <Button 
+        variant='outline-light'
+        style={{'position': 'absolute', 'top': '3px', 'right': '3px'}}
+        href='https://github.com/John-Atha/CodeOn'
+        rel='noopener noreferrer'
+        target='_blank'>
+          Source code
+      </Button>
+      {!coding &&
+        <Home
+          startCoding={startCoding}
+          languages={languages}
+        />
+      }
+      {coding && 
+        null
+      }
     </div>
   );
 }
