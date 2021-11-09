@@ -83,3 +83,11 @@ export const CodingArea = styled.textarea`
     border-radius: 7px;
 
 `
+
+export const TitleInput = styled.input`
+    padding: 2px;
+    border: none;
+    &:focus {
+        outline: none;
+    }
+`
