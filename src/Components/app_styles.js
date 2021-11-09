@@ -58,7 +58,8 @@ export const Info = styled.div`
 `
 
 export const LangTitle = styled.h3`
-    text-align: center;
+    text-align: left;
+    margin-left: 20px;
     animation-name: ${SlowShowing};
     animation-duration: 4s;
 `
