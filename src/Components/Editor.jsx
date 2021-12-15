@@ -41,23 +41,27 @@ function Editor(props) {
     }
 
     const apiCall = (data, language) => {
-        axios.defaults.baseURL = 'https://codexweb.netlify.app/.netlify/functions/enforceCode';
-        const body = {
-            'code': data,
-            'language': language,
-            'input': '',
-        }
+        //axios.defaults.baseURL = 'https://codexweb.netlify.app/.netlify/functions/enforceCode';
+        axios.defaults.baseURL = 'http://127.0.0.1:5000';
+        //const body = {
+        //    'code': data,
+        //    'language': language,
+        //    'input': '',
+        //}
+        //const headers = { 
+        //    'Content-Type': 'application/json'
+        //};
         const headers = { 
-            'Content-Type': 'application/json'
-        };
-        return axios.post('/', body, { headers } );
+            'Content-Type' : 'text/plain' 
+        }
+        return axios.post('/ucode', data, { headers });
     }
 
     const run = () => {
         apiCall(code, lang.payload)
         .then(response => {
             console.log(response.data);
-            setResults(response.data.output);
+            setResults(response.data.ans);
             resultsRef.current.scrollIntoView();
         })
         .catch(err => {
